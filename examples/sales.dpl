@@ -1,0 +1,17 @@
+// takes a relative path with the assignment op '<-'
+csv <- "sales.csv"
+
+// this is a comment
+filter(where amount > 1000)
+
+group by region
+
+/#
+    and this is a multiline comment, cause im petty and i dont like python's or
+    any C-like languages implementations
+#/
+
+aggregate(sum(amount) as total_sales)
+
+// returns to a relative path via the write op '->'
+output -> "report.json"
