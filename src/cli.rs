@@ -1,9 +1,10 @@
 // Command-line parsing using clap
+use clap::{Parser, Subcommand, command};
 
-const command_name: &str = "dpl";
+const COMMAND_NAME: &str = "dpl";
 
 #[derive(Parser)]
-#[command(name = command_name)]
+#[command(name = COMMAND_NAME)]
 pub struct Cli {
     pub file: Option<String>,
 
