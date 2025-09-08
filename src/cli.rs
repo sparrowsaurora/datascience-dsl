@@ -1,7 +1,7 @@
 // Command-line parsing using clap
 use clap::{Parser, Subcommand, command};
 
-const COMMAND_NAME: &str = "dpl";
+pub const COMMAND_NAME: &str = "dpl";
 
 #[derive(Parser)]
 #[command(name = COMMAND_NAME)]
