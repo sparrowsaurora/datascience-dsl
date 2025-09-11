@@ -1,0 +1,28 @@
+WHITESPACE = _{ " " | "\t" | NEWLINE }
+SINGLE_LINE_COMMENT = _{ "//" ~ (!NEWLINE ~ ANY)* ~ NEWLINE? }
+MULTI_LINE_COMMENT = _{ "/#" ~ (!"#/" ~ ANY)* ~ "#/" }
+
+_ = _{ (WHITESPACE | SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT)* }
+
+file = { SOI ~ _ ~ statement* ~ EOI }
+
+statement = { (load | filter | groupby | aggregate | output) ~ _ }
+
+load = { ident ~ _ ~ "<-" ~ _ ~ string }
+filter = { "filter" ~ _ ~ "(" ~ _ ~ "where" ~ _ ~ expression ~ _ ~ ")" }
+groupby = { "group" ~ _ ~ "by" ~ _ ~ ident_list }
+aggregate = { "aggregate" ~ _ ~ "(" ~ _ ~ agg_call ~ _ ~ ")" }
+agg_call = { ident ~ _ ~ "(" ~ _ ~ ident ~ _ ~ ")" ~ (_ ~ "as" ~ _ ~ ident)? }
+output = { "output" ~ _ ~ "->" ~ _ ~ string }
+
+ident_list = { ident ~ (_ ~ "," ~ _ ~ ident )* }
+
+ident = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+string = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+
+number = @{ "-"? ~ ASCII_DIGIT+ ~ ("." ~ ASCII_DIGIT+)? }
+
+expression = { value ~ _ ~ comp_op ~ _ ~ value }
+comp_op = { ">=" | "<=" | "==" | "!=" | ">" | "<" }
+value = { number | string | ident }
