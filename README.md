@@ -22,14 +22,14 @@ The interpreter, written in Rust, parses the DSL into an AST and executes it dir
 
 ## Example DSL Pipeline
 
-`sales_pipeline.dpl`:
+`sales.dpl`:
 
 ```dpl
-take csv "sales.csv"
-filter where amount > 1000
+csv <- "sales.csv"
+filter(where amount > 1000)
 group by region
-aggregate sum(amount) as total_sales
-output to "report.json"
+aggregate(sum(amount) as total_sales)
+output -> "report.json"
 ```
 
 This pipeline:
