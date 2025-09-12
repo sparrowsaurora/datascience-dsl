@@ -22,6 +22,10 @@ pub enum Statement {
         column: String,
         alias: Option<String>,
     },
+
+    Output {
+        path: String,
+    },
 }
 
 #[derive(Debug, Clone)]
